@@ -11,7 +11,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 config.step = 0
 
-@dp.message_handler(commands = ['start'])
+@dp.message_handler(commands = ['О вузе'])
 async def startMessage(message):    
     menu = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
     btn1 = types.KeyboardButton('О вузе')
