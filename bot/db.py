@@ -24,7 +24,6 @@ def get_faculties(faculty : str):
 	else:
 		print("Error! cannot connect")
 
-print(get_faculties('МТФ')[1])
 
 
 
