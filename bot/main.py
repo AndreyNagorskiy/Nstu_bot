@@ -74,8 +74,12 @@ async def firstStep(message, state: FSMContext):
         await Step.chance.set()
     if message.text == 'Контакты':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=True)
-        btn1 = button('Назад')
+        btn1 = button('Приемная комиссия')
+        btn2 = button('Деканаты факультетов')
+        btn3 = button('Назад')
         menu.row(btn1)
+        menu.row(btn2)
+        menu.row(btn3)
         await bot.send_message(message.chat.id,infos['contacts_info'],reply_markup=menu)
         await Step.contacts.set()
     if message.text == 'Онлайн заявка':
@@ -120,5 +124,33 @@ async def vuzStep(message, state: FSMContext):
         msg = db_operations.get_faculties(message.text)
         await bot.send_message(message.chat.id,msg)
 
+@dp.message_handler(state = Step.contacts)
+async def contactsStep(message, state: FSMContext): 
+    if message.text == 'Приемная комиссия':
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        btn1 = button('Назад')
+        menu.row(btn1)
+        await bot.send_message(message.chat.id,infos['comission_contacts'],reply_markup=menu)
+    if message.text == 'Деканаты факультетов':
+        menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
+        btn1 = button('АВТФ')
+        btn2 = button('ФЛА')
+        btn3 = button('МТФ')
+        btn4 = button('ФМА')
+        btn5 = button('ФПМИ')
+        btn6 = button('РЭФ')
+        btn7 = button('ФТФ')
+        btn8 = button('ФЭН')
+        btn9 = button('ФБ')
+        btn10 = button('ФГО')
+        btn11 = button('Назад')
+        menu.row(btn1,btn2,btn3,btn4,btn5)
+        menu.row(btn6,btn7,btn8,btn9,btn10)
+        menu.row(btn11)
+        await bot.send_message(message.chat.id,infos['faculties_contacts'],reply_markup=menu)
+    elif message.text != 'Назад':
+        msg = db_operations.get_faculties_contacts(message.text)
+        await bot.send_message(message.chat.id,msg)
+        
 if __name__ == '__main__':
     executor.start_polling(dp)
