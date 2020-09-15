@@ -12,7 +12,7 @@ def create_connection(db_file):
     return conn
 
 
-conn = create_connection(r'./database/nstu_bot_db.db')
+conn = create_connection(r'./bot/database/nstu_bot_db.db')
 
 
 def get_faculties(faculty: str):
@@ -22,6 +22,19 @@ def get_faculties(faculty: str):
         try:
             info = conn.cursor().execute(sql, (faculty,)).fetchall()
             return info[0]
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
+
+def insert(name: str, values : tuple):
+    marks = ''
+    for value in values: marks += '?,'
+    sql = """ INSERT INTO {} VALUES ({})""".format(name, marks[:-1])
+    if conn is not None:
+        try:
+            conn.cursor().execute(sql,values)
         except Error as e:
             print(e)
     else:
@@ -40,8 +53,3 @@ def create_teble(name: str, titles: str):
         print("Error! cannot connect")
 
 
-# with sqlite3.connect('nstu_bot_db.db') as db:
-#     cursor = db.cursor()
-#     query = """CREATE TABLE faculties(faculty TEXT PRIMARY KEY, information TEXT, decanat_cabinet TEXT,
-#             decanat_phone TEXT, site_url TEXT) """
-#     cursor.execute(query)

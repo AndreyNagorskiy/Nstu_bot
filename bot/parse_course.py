@@ -1,9 +1,8 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import csv
-import repackage
-repackage.up()
-from bot.db_operations import add_courses_info
+import db_operations
+
 
 def get_course_href():
     all_course_href = []
@@ -17,7 +16,8 @@ def get_course_href():
             faculty_href = div.get('href') + '/study_activity/specs'
             all_course_href.append(faculty_href)
     # Удаление кафедр Института социальных технологий
-    del (all_course_href[-1], all_course_href[-2], all_course_href[-3], all_course_href[-4], all_course_href[-5])
+    del (all_course_href[-1], all_course_href[-2],
+         all_course_href[-3], all_course_href[-4], all_course_href[-5])
     return all_course_href
 
 
@@ -33,16 +33,20 @@ def get_full_course_details():
             all_course_name = []
             count_course = 0
             for div in course_divs:
-                course_name = div.find('a', class_='formitem_spec_name').text.replace('Направление ', '')
+                course_name = div.find(
+                    'a', class_='formitem_spec_name').text.replace('Направление ', '')
                 all_course_name.append(course_name)
             for div in info_divs:
                 text_html = str(div)
-                faculty = div.find('a').text.split()[-1].replace('(', '').replace(')', '')
-                level_education = text_html.split('<span class="bold">Уровень обучения: </span>')[1].split()[0]
+                faculty = div.find('a').text.split(
+                )[-1].replace('(', '').replace(')', '')
+                level_education = text_html.split(
+                    '<span class="bold">Уровень обучения: </span>')[1].split()[0]
                 price = text_html.split(
                     '<span class="bold">Стоимость для обучающихся по контракту на первом курсе (в год) за 2020-2021 учебный год: </span>')[
-                            1].split()[0] + ' руб.'
-                budget = text_html.split('<span class="bold">Наличие бюджетных мест: </span>')[1].split()[0]
+                    1].split()[0] + ' руб.'
+                budget = text_html.split(
+                    '<span class="bold">Наличие бюджетных мест: </span>')[1].split()[0]
                 if budget != 'есть':
                     budget = 'нет'
                 data = {
