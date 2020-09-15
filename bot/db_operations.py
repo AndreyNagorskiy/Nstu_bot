@@ -28,5 +28,5 @@ def create_table_courses():
     keys TEXT'''
     db.create_teble(name, titles)
 
-
-create_table_courses()
+def add_courses_info():
+    print(x)
