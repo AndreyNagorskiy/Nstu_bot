@@ -24,10 +24,16 @@ def get_faculties(faculty : str):
 	else:
 		print("Error! cannot connect")
 
-
-
-
-
+def create_teble(name: str, titles: str):
+	sql = """ CREATE TABLE IF NOT EXISTS {0}
+	({1})""".format(name,titles)
+	if conn is not None:
+		try:
+			conn.cursor().execute(sql)
+		except Error as e:
+			print(e)
+	else:
+		print("Error! cannot connect")
 
 
 
