@@ -18,7 +18,7 @@ def get_faculties_contacts(message: str):
 
 def create_table_courses():
     name = 'courses'
-    titles ='''course_name TEXT PRIMARY KEY,
+    titles = '''course_name TEXT PRIMARY KEY,
     rating_link TEXT,
     faculty TEXT,
     budget TEXT,
@@ -26,6 +26,7 @@ def create_table_courses():
     exams TEXT,
     pre_course TEXT,
     keys TEXT'''
-    db.create_teble(name,titles)
+    db.create_teble(name, titles)
+
 
 create_table_courses()

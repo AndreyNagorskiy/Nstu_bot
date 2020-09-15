@@ -55,5 +55,3 @@ def get_full_course_details():
                 full_course_info.append(data)
                 count_course += 1
     return full_course_info
-
-print(get_full_course_details())
