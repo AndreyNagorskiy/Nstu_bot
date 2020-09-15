@@ -1,4 +1,4 @@
-import db
+from . import db
 
 
 def get_faculties(message: str):
@@ -29,4 +29,4 @@ def create_table_courses():
     db.create_teble(name, titles)
 
 def add_courses_info():
-    print(x)
+    print('x')
