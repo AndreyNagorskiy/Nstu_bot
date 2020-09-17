@@ -15,7 +15,11 @@ TOKEN = os.getenv('TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
+<<<<<<< HEAD
 with open(BASEDIR + '/database/info.json', 'r', encoding='utf-8') as js:
+=======
+with open(BASEDIR + './database/info.json', 'r', encoding='utf-8') as js:
+>>>>>>> 44771d7d9952699ccc28e9a8b000273a94675c67
     infos = json.load(js)
 
 
@@ -57,31 +61,27 @@ async def backMessage(message, state: FSMContext):
 @dp.message_handler(state=Step.start)
 async def firstStep(message, state: FSMContext):
     if message.text == 'О вузе':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
-        btn1 = button('Назад')
-        btn2 = button('Подробнее о факультетах')
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        btn1 = button('Подробнее о факультетах')
+        btn2 = button('Назад')
         menu.row(btn1)
         menu.row(btn2)
         await bot.send_message(message.chat.id, infos['nstu_info'], reply_markup=menu)
         await Step.vuz.set()
     if message.text == 'Проф. тестирование':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['test_info'], reply_markup=menu)
         await Step.prof.set()
     if message.text == 'Шанс поступить':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['chance_info'], reply_markup=menu)
         await Step.chance.set()
     if message.text == 'Контакты':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Приемная комиссия')
         btn2 = button('Деканаты факультетов')
         btn3 = button('Назад')
@@ -91,22 +91,19 @@ async def firstStep(message, state: FSMContext):
         await bot.send_message(message.chat.id, infos['contacts_info'], reply_markup=menu)
         await Step.contacts.set()
     if message.text == 'Онлайн заявка':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
         await Step.application.set()
     if message.text == 'Узнать рейтинг':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['rating_info'], reply_markup=menu)
         await Step.rating.set()
     if message.text == 'Вопросы - Ответы':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=True)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['questions_info'], reply_markup=menu)
@@ -116,8 +113,7 @@ async def firstStep(message, state: FSMContext):
 @dp.message_handler(state=Step.vuz)
 async def vuzStep(message, state: FSMContext):
     if message.text == 'Подробнее о факультетах':
-        menu = markup(row_width=5, resize_keyboard=True,
-                      one_time_keyboard=False)
+        menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('АВТФ')
         btn2 = button('ФЛА')
         btn3 = button('МТФ')
@@ -141,14 +137,12 @@ async def vuzStep(message, state: FSMContext):
 @dp.message_handler(state=Step.contacts)
 async def contactsStep(message, state: FSMContext):
     if message.text == 'Приемная комиссия':
-        menu = markup(row_width=1, resize_keyboard=True,
-                      one_time_keyboard=False)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['comission_contacts'], reply_markup=menu)
     if message.text == 'Деканаты факультетов':
-        menu = markup(row_width=5, resize_keyboard=True,
-                      one_time_keyboard=False)
+        menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('АВТФ')
         btn2 = button('ФЛА')
         btn3 = button('МТФ')
@@ -167,6 +161,14 @@ async def contactsStep(message, state: FSMContext):
     elif message.text != 'Назад':
         msg = db_operations.get_faculties_contacts(message.text)
         await bot.send_message(message.chat.id, msg)
+
+
+@dp.message_handler(state=Step.application)
+async def applicationStep(message, state: FSMContext):
+    menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+    btn1 = button('Назад')
+    menu.row(btn1)
+    await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
 
 if __name__ == '__main__':
     executor.start_polling(dp)
