@@ -28,3 +28,9 @@ def add_courses_info(info: list):
     for i in info:
         db.insert('courses', tuple(i.values()))
     
+def get_courses_by_keys(key1,key2,key3):
+    course_info = db.get_courses_by_keys((key1,key2,key3,))
+    msg = 'Вам могут быть интересны направления:\n' 
+    for course in course_info:
+        msg += (course[0] + '\nФакультет - ' + course[1]+ '\n')
+    return(msg)

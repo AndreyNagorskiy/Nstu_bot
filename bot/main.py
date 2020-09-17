@@ -15,11 +15,7 @@ TOKEN = os.getenv('TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-<<<<<<< HEAD
-with open(BASEDIR + '/database/info.json', 'r', encoding='utf-8') as js:
-=======
 with open(BASEDIR + './database/info.json', 'r', encoding='utf-8') as js:
->>>>>>> 44771d7d9952699ccc28e9a8b000273a94675c67
     infos = json.load(js)
 
 
@@ -70,8 +66,13 @@ async def firstStep(message, state: FSMContext):
         await Step.vuz.set()
     if message.text == 'Проф. тестирование':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
-        btn1 = button('Назад')
-        menu.row(btn1)
+        menu.row(button('Техника, машины и механизмы'))
+        menu.row(button('Финансы'))
+        menu.row(button('Иностранные языки'))
+        menu.row(button('Компьютеры и программы'))
+        menu.row(button('Физика, химия и энергетика'))
+        menu.row(button('Гуманитарные специальности'))
+        menu.row(button('Назад'))
         await bot.send_message(message.chat.id, infos['test_info'], reply_markup=menu)
         await Step.prof.set()
     if message.text == 'Шанс поступить':
@@ -169,6 +170,55 @@ async def applicationStep(message, state: FSMContext):
     btn1 = button('Назад')
     menu.row(btn1)
     await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
+
+
+@dp.message_handler(state=Step.prof)
+async def testStep(message, state: FSMContext):
+    key1 = None
+    key2 = None
+    key3 = None
+    if message.text == 'Техника, машины и механизмы':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Технологии'))
+        menu.row(button('Радиотехника'))
+        menu.row(button('Летательные аппараты'))
+        menu.row(button('Машиностроение'))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)
+    if message.text == 'Финансы':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Экономика'))
+        menu.row(button('Менеджмент')) 
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)
+    if message.text == 'Иностранные языки':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Направления', reply_markup=menu) #last
+    if message.text == 'Компьютеры и программы':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Программирование'))
+        menu.row(button('Информационная безопасность')) 
+        menu.row(button('Автоматизация')) 
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)
+    if message.text == 'Физика, химия и энергетика':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Прикладная физика'))
+        menu.row(button('Электроэнергетика и электротехника')) 
+        menu.row(button('Физико-химия материалов и процессов')) 
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)
+    if message.text == 'Гуманитарные специальности':
+        key1 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), reply_markup=menu) #last
 
 if __name__ == '__main__':
     executor.start_polling(dp)

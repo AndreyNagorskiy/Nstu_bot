@@ -29,13 +29,11 @@ def get_faculties(faculty: str):
 
 
 def insert(name: str, values : tuple):
-    marks = ''
-    for value in values: marks += '?,'
-    sql = """
-     INSERT INTO {} ('course_name', 'faculty', 'level_education', 'price', 'budget')  VALUES ({})""".format(name, marks[:-1])
+    sql = """ INSERT INTO {} ('course_name', 'faculty', 'level_education', 'price', 'budget')  VALUES (?,?,?,?,?)""".format(name)
     if conn is not None:
         try:
             conn.cursor().execute(sql,values)
+            conn.commit()
         except Error as e:
             print(e)
     else:
@@ -54,3 +52,14 @@ def create_teble(name: str, titles: str):
         print("Error! cannot connect")
 
 
+def get_courses_by_keys(keys:tuple):
+    sql = """ SELECT course_name,faculty FROM courses
+    WHERE key1 is ? AND key2 is ? AND key3 is ?"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql, keys).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
