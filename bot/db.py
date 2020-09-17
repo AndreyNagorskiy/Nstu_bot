@@ -31,7 +31,8 @@ def get_faculties(faculty: str):
 def insert(name: str, values : tuple):
     marks = ''
     for value in values: marks += '?,'
-    sql = """ INSERT INTO {} VALUES ({})""".format(name, marks[:-1])
+    sql = """
+     INSERT INTO {} ('course_name', 'faculty', 'level_education', 'price', 'budget')  VALUES ({})""".format(name, marks[:-1])
     if conn is not None:
         try:
             conn.cursor().execute(sql,values)

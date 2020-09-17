@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup as bs
 import csv
 import db_operations
 
-
 def get_course_href():
     all_course_href = []
     session = requests.session()
@@ -56,6 +55,10 @@ def get_full_course_details():
                     'price': price,
                     'budget': budget
                 }
-                full_course_info.append(data)
+                if data['faculty'] != 'направлению' and data['level_education'] != 'магистр'and data['level_education'] != 'среднее' and not any(i['course_name'] == data['course_name'] for i in full_course_info):
+                    full_course_info.append(data)
                 count_course += 1
-    return full_course_info
+    # db_operations.add_courses_info(full_course_info)
+    print(full_course_info)
+
+get_full_course_details()

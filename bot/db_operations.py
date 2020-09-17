@@ -26,5 +26,5 @@ def create_table_courses():
 
 def add_courses_info(info: list):
     for i in info:
-        db.insert('courses', tuple(i.values))
+        db.insert('courses', tuple(i.values()))
     

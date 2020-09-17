@@ -15,7 +15,7 @@ TOKEN = os.getenv('TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-with open(BASEDIR + '/info.json', 'r', encoding='utf-8') as js:
+with open(BASEDIR + '/database/info.json', 'r', encoding='utf-8') as js:
     infos = json.load(js)
 
 
