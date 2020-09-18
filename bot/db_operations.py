@@ -26,7 +26,12 @@ def create_table_courses():
 
 def add_courses_info(info: list):
     for i in info:
-        db.insert('courses', tuple(i.values()))
+        db.insert_course_info('courses', tuple(i.values()))
+
+
+def add_exams(info: list):
+    for i in info:
+        db.insert_exams((i['exams'],'%'+i['course_name']+'%'))
     
 def get_courses_by_keys(key1,key2,key3):
     course_info = db.get_courses_by_keys((key1,key2,key3,))

@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import re
-
+import db_operations
 
 def get_courses_exams():
     all_course_page_url = ['https://www.nstu.ru/entrance/entrance_all/bachelor?faculty=33', 'https://www.nstu.ru/entrance/entrance_all/bachelor?faculty=31',
@@ -30,3 +30,6 @@ def get_courses_exams():
                 if not any(i['course_name'] == data['course_name'] for i in full_course_info) and data['course_name'] != 'None':
                     full_course_info.append(data)
     return full_course_info
+
+
+db_operations.add_exams(get_courses_exams())

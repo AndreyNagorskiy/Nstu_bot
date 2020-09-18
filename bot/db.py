@@ -28,7 +28,7 @@ def get_faculties(faculty: str):
         print("Error! cannot connect")
 
 
-def insert(name: str, values : tuple):
+def insert_course_info(name: str, values : tuple):
     sql = """ INSERT INTO {} ('course_name', 'faculty', 'level_education', 'price', 'budget')  VALUES (?,?,?,?,?)""".format(name)
     if conn is not None:
         try:
@@ -39,7 +39,20 @@ def insert(name: str, values : tuple):
     else:
         print("Error! cannot connect")
 
-
+def insert_exams(values: tuple):
+    sql = """ UPDATE courses 
+    SET exams = ?
+    WHERE course_name LIKE ?;"""
+    if conn is not None:
+        try:
+            conn.cursor().execute(sql,values)
+            conn.commit()
+        except Error as e:
+            print(e)
+    else:
+           print("Error! cannot connect")
+           
+            
 def create_teble(name: str, titles: str):
     sql = """ CREATE TABLE IF NOT EXISTS {0}
 	({1})""".format(name, titles)
