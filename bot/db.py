@@ -67,7 +67,7 @@ def create_teble(name: str, titles: str):
 
 def get_courses_by_keys(keys:tuple):
     sql = """ SELECT course_name,faculty FROM courses
-    WHERE key1 is ? AND key2 is ? AND key3 is ?"""
+    WHERE ? is ?"""
     if conn is not None:
         try:
             info = conn.cursor().execute(sql, keys).fetchall()

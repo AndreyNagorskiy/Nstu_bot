@@ -177,6 +177,7 @@ async def testStep(message, state: FSMContext):
     key1 = None
     key2 = None
     key3 = None
+    # 1 уровень "Техника, машины и механизмы"
     if message.text == 'Техника, машины и механизмы':
         key1 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
@@ -186,6 +187,25 @@ async def testStep(message, state: FSMContext):
         menu.row(button('Машиностроение'))
         menu.row(button('Назад'))
         await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)
+    # 2 уровень "Техника, машины и механизмы"
+    if message.text == 'Технологии':
+        key2 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Робототехника'))
+        menu.row(button('Нанотехнологии'))
+        menu.row(button('Оптика'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu)    
+    if message.text == 'Радиотехника':
+        key2 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), reply_markup=menu) #last
+    
+
+              
+        
+
+
     if message.text == 'Финансы':
         key1 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
