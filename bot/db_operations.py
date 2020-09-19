@@ -43,8 +43,9 @@ def get_courses_by_keys(key1,key2,key3):
             msg_key = key
         i-=1
     course_info = db.get_courses_by_keys(key_num,msg_key)
-    print(course_info)
-    msg = 'Вам могут быть интересны направления:\n' 
+    msg = 'Вам могут быть интересны направления:\n\n' 
     for course in course_info:
-        msg += (course[0] + '\nФакультет - ' + course[1]+ '\n')
+        msg += ('<b>' + course[0] + '</b>' + '\nФакультет - ' + '<b>' + course[1] + '</b>' + '\nЭкзамены - ' +
+        '<b>' + course[2] + '</b>' + '\nБюджетные места - ' + '<b>' + course[3] + '</b>' +
+        '\nСтоимость обучения за год - ' + '<b>' + course[4] + '</b>' + '\n\n')
     return(msg)

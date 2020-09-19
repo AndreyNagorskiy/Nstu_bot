@@ -66,7 +66,7 @@ def create_teble(name: str, titles: str):
 
 
 def get_courses_by_keys(keyNumber,keyValue):
-    sql = """ SELECT course_name,faculty FROM courses
+    sql = """ SELECT course_name,faculty, exams, budget, price FROM courses
     WHERE {} = ?""".format(keyNumber)
     if conn is not None:
         try:
