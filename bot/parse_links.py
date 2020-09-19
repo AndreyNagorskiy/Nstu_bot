@@ -9,7 +9,7 @@ def get_links():
     for course in courses:
         request = requests.post('https://www.nstu.ru/entrance/admission_campaign/search_direction', data = {'keywords': course})
         soup = bs(request.content, 'lxml')
-        link = pyshorteners.Shortener().tinyurl.short('https://www.nstu.ru/entrance/admission_campaign/' + soup.find(class_='formitem_spec_name').get('href'))
+        link = pyshorteners.Shortener().dagd.short('https://www.nstu.ru/entrance/admission_campaign/' + soup.find(class_='formitem_spec_name').get('href'))
         db_operations.add_link((link,course,))
 
 get_links()
