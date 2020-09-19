@@ -32,6 +32,11 @@ def add_courses_info(info: list):
 def add_exams(info: list):
     for i in info:
         db.insert_exams((i['exams'],'%'+i['course_name']+'%'))
+
+
+
+def add_link(info: tuple):
+        db.insert_links(info)
     
 
 def get_courses_by_keys(key1,key2,key3):
@@ -47,5 +52,12 @@ def get_courses_by_keys(key1,key2,key3):
     for course in course_info:
         msg += ('<b>' + course[0] + '</b>' + '\nФакультет - ' + '<b>' + course[1] + '</b>' + '\nЭкзамены - ' +
         '<b>' + course[2] + '</b>' + '\nБюджетные места - ' + '<b>' + course[3] + '</b>' +
-        '\nСтоимость обучения за год - ' + '<b>' + course[4] + '</b>' + '\n\n')
+        '\nСтоимость обучения за год - ' + '<b>' + course[4] + '</b>' + '\nПодробнее - ' + course[5] +'\n\n')
     return(msg)
+
+
+def get_course_names():
+    courses = []
+    for course in db.get_course_names():
+        courses.append(course[0])
+    return courses

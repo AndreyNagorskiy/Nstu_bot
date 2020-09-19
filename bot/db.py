@@ -51,6 +51,20 @@ def insert_exams(values: tuple):
             print(e)
     else:
            print("Error! cannot connect")
+
+
+def insert_links(values: tuple):
+    sql = """ UPDATE courses 
+    SET link = ?
+    WHERE course_name LIKE ?"""
+    if conn is not None:
+        try:
+            conn.cursor().execute(sql,values)
+            conn.commit()
+        except Error as e:
+            print(e)
+    else:
+           print("Error! cannot connect")
            
             
 def create_teble(name: str, titles: str):
@@ -66,11 +80,23 @@ def create_teble(name: str, titles: str):
 
 
 def get_courses_by_keys(keyNumber,keyValue):
-    sql = """ SELECT course_name,faculty, exams, budget, price FROM courses
+    sql = """ SELECT course_name,faculty, exams, budget, price, link FROM courses
     WHERE {} = ?""".format(keyNumber)
     if conn is not None:
         try:
             info = conn.cursor().execute(sql, (keyValue,)).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
+
+def get_course_names():
+    sql = """ SELECT course_name FROM courses"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql).fetchall()
             return info
         except Error as e:
             print(e)
