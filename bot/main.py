@@ -200,6 +200,19 @@ async def testStep(message, state: FSMContext):
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
         await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), reply_markup=menu) #last
+    if message.text == 'Летательные аппараты':
+        key2 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), reply_markup=menu) #last
+    if message.text == 'Машиностроение':
+        key2 = message.text
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        menu.row(button('Приборостроение'))
+        menu.row(button('Обслуживание и эксплуатация'))
+        menu.row(button('Оптика'))
+        await bot.send_message(message.chat.id, 'Выберите интересующую вас область знаний', reply_markup=menu) 
+    # 3 уровень "Техника, машины и механизмы"
     
 
               

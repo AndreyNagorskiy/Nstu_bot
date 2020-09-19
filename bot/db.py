@@ -65,12 +65,12 @@ def create_teble(name: str, titles: str):
         print("Error! cannot connect")
 
 
-def get_courses_by_keys(keys:tuple):
+def get_courses_by_keys(keyNumber,keyValue):
     sql = """ SELECT course_name,faculty FROM courses
-    WHERE ? is ?"""
+    WHERE {} = ?""".format(keyNumber)
     if conn is not None:
         try:
-            info = conn.cursor().execute(sql, keys).fetchall()
+            info = conn.cursor().execute(sql, (keyValue,)).fetchall()
             return info
         except Error as e:
             print(e)

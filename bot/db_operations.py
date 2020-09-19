@@ -33,6 +33,7 @@ def add_exams(info: list):
     for i in info:
         db.insert_exams((i['exams'],'%'+i['course_name']+'%'))
     
+
 def get_courses_by_keys(key1,key2,key3):
     keys = [key3,key2,key1]
     i=3
@@ -40,8 +41,9 @@ def get_courses_by_keys(key1,key2,key3):
         if key != None:
             key_num = 'key'+str(i)
             msg_key = key
-            i-=1
-    course_info = db.get_courses_by_keys((key_num,msg_key,))
+        i-=1
+    course_info = db.get_courses_by_keys(key_num,msg_key)
+    print(course_info)
     msg = 'Вам могут быть интересны направления:\n' 
     for course in course_info:
         msg += (course[0] + '\nФакультет - ' + course[1]+ '\n')
