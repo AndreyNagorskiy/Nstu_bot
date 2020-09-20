@@ -61,3 +61,14 @@ def get_course_names():
     for course in db.get_course_names():
         courses.append(course[0])
     return courses
+
+
+def get_courses_and_faculties_names():
+    courses_and_faculty = []
+    for course in db.get_course_names():
+        data = {
+            'course': course[0],
+            'faculty': course[1]
+        }
+        courses_and_faculty.append(data)
+    return courses_and_faculty

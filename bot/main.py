@@ -98,10 +98,22 @@ async def firstStep(message, state: FSMContext):
         await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
         await Step.application.set()
     if message.text == 'Узнать рейтинг':
-        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
-        btn1 = button('Назад')
-        menu.row(btn1)
-        await bot.send_message(message.chat.id, infos['rating_info'], reply_markup=menu)
+        menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
+        btn1 = button('АВТФ')
+        btn2 = button('ФЛА')
+        btn3 = button('МТФ')
+        btn4 = button('ФМА')
+        btn5 = button('ФПМИ')
+        btn6 = button('РЭФ')
+        btn7 = button('ФТФ')
+        btn8 = button('ФЭН')
+        btn9 = button('ФБ')
+        btn10 = button('ФГО')
+        btn11 = button('Назад')
+        menu.row(btn1, btn2, btn3, btn4, btn5)
+        menu.row(btn6, btn7, btn8, btn9, btn10)
+        menu.row(btn11)
+        await bot.send_message(message.chat.id, 'Выберите факультет', reply_markup=menu)
         await Step.rating.set()
     if message.text == 'Вопросы - Ответы':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
@@ -170,6 +182,17 @@ async def applicationStep(message, state: FSMContext):
     btn1 = button('Назад')
     menu.row(btn1)
     await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
+
+
+@dp.message_handler(state=Step.rating)
+async def ratingStep(message, state: FSMContext):
+    courses = db_operations.get_courses_and_faculties_names()
+    menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+    btn1 = button('Назад')
+    menu.row(btn1)
+    await bot.send_message(message.chat.id, 'бубу', reply_markup=menu)
+
+
 
 
 @dp.message_handler(state=Step.prof)
