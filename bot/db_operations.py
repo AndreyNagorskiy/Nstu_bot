@@ -52,7 +52,7 @@ def get_courses_by_keys(key1,key2,key3):
     for course in course_info:
         msg += ('<b>' + course[0] + '</b>' + '\nФакультет - ' + '<b>' + course[1] + '</b>' + '\nЭкзамены - ' +
         '<b>' + course[2] + '</b>' + '\nБюджетные места - ' + '<b>' + course[3] + '</b>' +
-        '\nСтоимость обучения за год - ' + '<b>' + course[4] + '</b>' + '\nПодробнее - ' + course[5] +'\n\n')
+        '\nСтоимость за год - ' + '<b>' + course[4] + '</b>' + '\n<a href="{}">'.format(course[5]) + 'Подробнее'+'</a>' + '\n\n')
     return(msg)
 
 

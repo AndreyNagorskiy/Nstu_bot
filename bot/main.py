@@ -200,13 +200,13 @@ async def testStep(message, state: FSMContext):
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Летательные аппараты':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     if message.text == 'Машиностроение':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
@@ -220,31 +220,31 @@ async def testStep(message, state: FSMContext):
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Робототехника':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Нанотехнологии':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Обслуживание и эксплуатация':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Оптика':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
 
     # 1 уровень "Финансы"
     if message.text == 'Финансы':
@@ -260,20 +260,20 @@ async def testStep(message, state: FSMContext):
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Экономика':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # 1 уровень "Иностранные языки"
     # last        
     if message.text == 'Иностранные языки':
         key1 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # 1 уровень "Компьютеры и программы"
     if message.text == 'Компьютеры и программы':
         key1 = message.text
@@ -289,19 +289,19 @@ async def testStep(message, state: FSMContext):
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Информационная безопасность':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # last
     if message.text == 'Автоматизация':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # 1 уровень "Физика, химия и энергетика"
     if message.text == 'Физика, химия и энергетика':
         key1 = message.text
@@ -317,7 +317,7 @@ async def testStep(message, state: FSMContext):
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     if message.text == 'Электроэнергетика и электротехника':
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
@@ -329,27 +329,27 @@ async def testStep(message, state: FSMContext):
         key2 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
     # 3 уровень "Физика, химия и энергетика"
     # last
     if message.text == 'Энергетика':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)    
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)    
     # last
     if message.text == 'Экология':
         key3 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu) 
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True) 
     # 1 уровень "Гуманитарные специальности"
     # last
     if message.text == 'Гуманитарные специальности':
         key1 = message.text
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu)
+        await bot.send_message(message.chat.id, db_operations.get_courses_by_keys(key1,key2,key3), parse_mode='html', reply_markup=menu, disable_web_page_preview=True)
 
 if __name__ == '__main__':
     executor.start_polling(dp)
