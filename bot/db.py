@@ -55,7 +55,7 @@ def insert_exams(values: tuple):
 
 def insert_links(values: tuple):
     sql = """ UPDATE courses 
-    SET link = ?
+    SET link = ?, rating_link = ?
     WHERE course_name LIKE ?"""
     if conn is not None:
         try:

@@ -2,3 +2,4 @@
 .vscode
 .idea
 nstuBot
+/bot/__pycache__

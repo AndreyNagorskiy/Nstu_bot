@@ -9,7 +9,21 @@ def get_links():
     for course in courses:
         request = requests.post('https://www.nstu.ru/entrance/admission_campaign/search_direction', data = {'keywords': course})
         soup = bs(request.content, 'lxml')
-        link = pyshorteners.Shortener().dagd.short('https://www.nstu.ru/entrance/admission_campaign/' + soup.find(class_='formitem_spec_name').get('href'))
-        db_operations.add_link((link,course,))
+        link = pyshorteners.Shortener().clckru.short('https://www.nstu.ru/entrance/admission_campaign/' + soup.find(class_='formitem_spec_name').get('href'))
+        rating_link = get_rating_links(course)
+        db_operations.add_link((link,rating_link,course,))
+        
+
+
+def get_rating_links(course):
+    request = requests.get('https://www.nstu.ru/entrance/admission_campaign/entrance')
+    soup = bs(request.content, 'lxml')
+    tables = soup.find_all('table')
+    for table in tables:
+        if course.replace(' -','') in table.find('b').text and 'очная' in table.text:
+            return(table.find('a').get('href'))
+
+
+
 
 get_links()
