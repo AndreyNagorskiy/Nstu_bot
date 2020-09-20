@@ -186,12 +186,86 @@ async def applicationStep(message, state: FSMContext):
 
 @dp.message_handler(state=Step.rating)
 async def ratingStep(message, state: FSMContext):
-    courses = db_operations.get_courses_and_faculties_names()
-    menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
-    btn1 = button('Назад')
-    menu.row(btn1)
-    await bot.send_message(message.chat.id, 'бубу', reply_markup=menu)
-
+    if message.text == 'АВТФ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФЛА':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'МТФ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФМА':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)  
+    if message.text == 'ФПМИ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'РЭФ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФТФ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФЭН':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФБ':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
+    if message.text == 'ФГО':
+        faculty = message.text
+        courses = db_operations.get_courses_and_faculties_names(faculty)
+        menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+        for course in courses:
+             menu.row(button(course['course']))
+        menu.row(button('Назад'))
+        await bot.send_message(message.chat.id, 'Выберите нужное направление', reply_markup=menu)
 
 
 

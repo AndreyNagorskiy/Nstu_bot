@@ -63,12 +63,14 @@ def get_course_names():
     return courses
 
 
-def get_courses_and_faculties_names():
+def get_courses_and_faculties_names(faculty:str):
     courses_and_faculty = []
     for course in db.get_course_names():
-        data = {
-            'course': course[0],
-            'faculty': course[1]
-        }
-        courses_and_faculty.append(data)
+        if course[1] == faculty:
+            data = {
+                'course': course[0].split(' - ')[1],
+                'faculty': course[1],
+                'rating_link': course[2]
+            }
+            courses_and_faculty.append(data)
     return courses_and_faculty

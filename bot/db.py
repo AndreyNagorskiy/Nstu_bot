@@ -93,7 +93,7 @@ def get_courses_by_keys(keyNumber,keyValue):
 
 
 def get_course_names():
-    sql = """ SELECT course_name, faculty FROM courses"""
+    sql = """ SELECT course_name, faculty, rating_link FROM courses"""
     if conn is not None:
         try:
             info = conn.cursor().execute(sql).fetchall()
