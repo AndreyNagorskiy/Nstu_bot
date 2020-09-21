@@ -1,4 +1,6 @@
 import db
+import parse_rating
+
 
 def get_faculties(message: str):
     raw = db.get_faculties(message)
@@ -61,9 +63,14 @@ def get_courses_by_faculty(faculty:str):
     return(courses)
 
 
-def get_rating_link(course:str): #needs to be fixed
+def get_rating(course:str,name:str):
     link = db.get_rating_link(course)[0][0]
-    return(link)
+    place = parse_rating.parser(link,name)
+    if place != '':
+        msg = 'Ваше местов рейтинге поступающих - ' + place
+    else:
+        msg = 'ФИО не найдено'
+    return(msg)
 
 
 def get_course_names():

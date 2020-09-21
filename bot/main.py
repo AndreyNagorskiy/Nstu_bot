@@ -27,7 +27,14 @@ class Step(StatesGroup):
     contacts = State()
     application = State()
     rating = State()
+    waitng_for_rate = State()
     questions = State()
+
+
+class RatingCache:
+    cache = {}
+    def __init__(self,name,msg):
+        self.cache[name] = msg 
 
 
 def default_menu():
@@ -196,8 +203,19 @@ async def ratingStep(message, state: FSMContext):
     else:
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Назад'))
-        msg = db_operations.get_rating_link(message.text)
-        await bot.send_message(message.chat.id,msg , reply_markup=menu)
+        RatingCache(message.chat.id,message.text)
+        await bot.send_message(message.chat.id,'Введите ФИО', reply_markup=menu)        
+        await Step.waitng_for_rate.set()
+
+
+@dp.message_handler(state=Step.waitng_for_rate)
+async def place_in_rating_Step(message, state: FSMContext):
+    course = RatingCache.cache[message.chat.id]
+    menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
+    menu.row(button('Назад'))
+    msg = db_operations.get_rating(course,message.text)
+    await bot.send_message(message.chat.id, msg, reply_markup=menu)
+    del RatingCache.cache[message.chat.id]
 
 
 @dp.message_handler(state=Step.prof)
