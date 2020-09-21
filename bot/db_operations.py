@@ -56,21 +56,19 @@ def get_courses_by_keys(key1,key2,key3):
     return(msg)
 
 
+def get_courses_by_faculty(faculty:str):
+    courses = db.get_courses_by_faculty(faculty)
+    return(courses)
+
+
+def get_rating_link(course:str): #needs to be fixed
+    link = db.get_rating_link(course)[0][0]
+    return(link)
+
+
 def get_course_names():
     courses = []
     for course in db.get_course_names():
         courses.append(course[0])
     return courses
 
-
-def get_courses_and_faculties_names(faculty:str):
-    courses_and_faculty = []
-    for course in db.get_course_names():
-        if course[1] == faculty:
-            data = {
-                'course': course[0].split(' - ')[1],
-                'faculty': course[1],
-                'rating_link': course[2]
-            }
-            courses_and_faculty.append(data)
-    return courses_and_faculty

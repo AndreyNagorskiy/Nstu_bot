@@ -91,6 +91,31 @@ def get_courses_by_keys(keyNumber,keyValue):
     else:
         print("Error! cannot connect")
 
+def get_courses_by_faculty(faculty:str):
+    sql = """ SELECT course_name FROM courses
+    WHERE faculty = ?"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql, (faculty,)).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
+
+def get_rating_link(course:str):
+    sql = """ SELECT rating_link FROM courses
+    WHERE course_name = ?"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql, (course,)).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
 
 def get_course_names():
     sql = """ SELECT course_name, faculty, rating_link FROM courses"""
