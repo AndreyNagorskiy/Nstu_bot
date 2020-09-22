@@ -127,3 +127,25 @@ def get_course_names():
             print(e)
     else:
         print("Error! cannot connect")
+
+def insert_id_and_step(name: str, values : tuple):
+    sql = """ INSERT OR IGNORE INTO {} ('chat_id', 'step')  VALUES (?,?)""".format(name)
+    if conn is not None:
+        try:
+            conn.cursor().execute(sql,values)
+            conn.commit()
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
+def check_step_in_db(name:str, chat_id: int):
+    sql = """ SELECT step FROM users WHERE chat_id = ?"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql,(chat_id,)).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")

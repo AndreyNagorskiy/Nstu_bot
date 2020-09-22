@@ -51,6 +51,8 @@ def default_menu():
 
 @dp.message_handler(commands=['start'], state="*")
 async def startMessage(message, state: FSMContext):
+    array = [message.chat.id, 'start']
+    db_operations.add_id_and_step(array)
     await bot.send_message(message.chat.id, infos['welcome_message'], reply_markup=default_menu())
     await Step.start.set()
 

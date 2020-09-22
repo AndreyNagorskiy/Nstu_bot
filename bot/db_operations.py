@@ -79,3 +79,11 @@ def get_course_names():
         courses.append(course[0])
     return courses
 
+
+def add_id_and_step(info: list):
+    db.insert_id_and_step('users', tuple(info))
+
+
+def check_step(chat_id:str):
+    step = db.check_step_in_db('users', chat_id)[0][0]
+    return step
