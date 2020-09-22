@@ -215,7 +215,8 @@ async def place_in_rating_Step(message, state: FSMContext):
     menu.row(button('Назад'))
     msg = db_operations.get_rating(course,message.text)
     await bot.send_message(message.chat.id, msg, reply_markup=menu)
-    del RatingCache.cache[message.chat.id]
+    if msg != 'ФИО не найдено':
+        del RatingCache.cache[message.chat.id]
 
 
 @dp.message_handler(state=Step.prof)
