@@ -1,8 +1,6 @@
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import InlineQuery, InputTextMessageContent, InlineQueryResultArticle, ReplyKeyboardMarkup as markup, KeyboardButton as button
-from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.dispatcher import FSMContext
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import aiohttp
 import os
@@ -19,16 +17,16 @@ with open(BASEDIR + './database/info.json', 'r', encoding='utf-8') as js:
     infos = json.load(js)
 
 
-class Step(StatesGroup):
-    start = State()
-    vuz = State()
-    prof = State()
-    chance = State()
-    contacts = State()
-    application = State()
-    rating = State()
-    waitng_for_rate = State()
-    questions = State()
+class Step():
+    start = 'start'
+    vuz = 'vuz'
+    prof = 'prof'
+    chance = 'chance'
+    contacts = 'contacts'
+    application = 'application'
+    rating = 'rating'
+    waitng_for_rate = 'waitng_for_rate'
+    questions = 'questions'
 
 
 class RatingCache:
@@ -49,20 +47,20 @@ def default_menu():
     return(menu)
 
 
-@dp.message_handler(commands=['start'], state="*")
-async def startMessage(message, state: FSMContext):
+@dp.message_handler(commands=['start'])
+async def startMessage(message):
     await bot.send_message(message.chat.id, infos['welcome_message'], reply_markup=default_menu())
-    await Step.start.set()
+    db_operations.add_state(message.chat.id,Step.start)
 
 
-@dp.message_handler(state="*", text_contains='Назад')
-async def backMessage(message, state: FSMContext):
+@dp.message_handler(text_contains='Назад')
+async def backMessage(message):
     await bot.send_message(message.chat.id, 'Выберите действие', reply_markup=default_menu())
-    await Step.start.set()
+    db_operations.add_state(message.chat.id,Step.start)
 
 
-@dp.message_handler(state=Step.start)
-async def firstStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.start)
+async def firstStep(message):
     if message.text == 'О вузе':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Подробнее о факультетах')
@@ -70,7 +68,7 @@ async def firstStep(message, state: FSMContext):
         menu.row(btn1)
         menu.row(btn2)
         await bot.send_message(message.chat.id, infos['nstu_info'], reply_markup=menu)
-        await Step.vuz.set()
+        db_operations.add_state(message.chat.id,Step.vuz)
     if message.text == 'Проф. тестирование':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         menu.row(button('Техника, машины и механизмы'))
@@ -81,13 +79,13 @@ async def firstStep(message, state: FSMContext):
         menu.row(button('Гуманитарные специальности'))
         menu.row(button('Назад'))
         await bot.send_message(message.chat.id, infos['test_info'], reply_markup=menu)
-        await Step.prof.set()
+        db_operations.add_state(message.chat.id,Step.prof)
     if message.text == 'Шанс поступить':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['chance_info'], reply_markup=menu)
-        await Step.chance.set()
+        db_operations.add_state(message.chat.id,Step.chance)
     if message.text == 'Контакты':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Приемная комиссия')
@@ -97,13 +95,13 @@ async def firstStep(message, state: FSMContext):
         menu.row(btn2)
         menu.row(btn3)
         await bot.send_message(message.chat.id, infos['contacts_info'], reply_markup=menu)
-        await Step.contacts.set()
+        db_operations.add_state(message.chat.id,Step.contacts)
     if message.text == 'Онлайн заявка':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
-        await Step.application.set()
+        db_operations.add_state(message.chat.id,Step.application)
     if message.text == 'Узнать рейтинг':
         menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('АВТФ')
@@ -121,17 +119,17 @@ async def firstStep(message, state: FSMContext):
         menu.row(btn6, btn7, btn8, btn9, btn10)
         menu.row(btn11)
         await bot.send_message(message.chat.id, 'Выберите факультет', reply_markup=menu)
-        await Step.rating.set()
+        db_operations.add_state(message.chat.id,Step.rating)
     if message.text == 'Вопросы - Ответы':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
         menu.row(btn1)
         await bot.send_message(message.chat.id, infos['questions_info'], reply_markup=menu)
-        await Step.questions.set()
+        db_operations.add_state(message.chat.id,Step.questions)
 
 
-@dp.message_handler(state=Step.vuz)
-async def vuzStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.vuz)
+async def vuzStep(message):
     if message.text == 'Подробнее о факультетах':
         menu = markup(row_width=5, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('АВТФ')
@@ -154,8 +152,8 @@ async def vuzStep(message, state: FSMContext):
         await bot.send_message(message.chat.id, msg)
 
 
-@dp.message_handler(state=Step.contacts)
-async def contactsStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.contacts)
+async def contactsStep(message):
     if message.text == 'Приемная комиссия':
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
         btn1 = button('Назад')
@@ -183,16 +181,16 @@ async def contactsStep(message, state: FSMContext):
         await bot.send_message(message.chat.id, msg)
 
 
-@dp.message_handler(state=Step.application)
-async def applicationStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.application)
+async def applicationStep(message):
     menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
     btn1 = button('Назад')
     menu.row(btn1)
     await bot.send_message(message.chat.id, infos['online_application'], reply_markup=menu)
 
 
-@dp.message_handler(state=Step.rating)
-async def ratingStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.rating)
+async def ratingStep(message):
     if len(message.text) < 10:
         courses = db_operations.get_courses_by_faculty(message.text)
         menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
@@ -205,11 +203,11 @@ async def ratingStep(message, state: FSMContext):
         menu.row(button('Назад'))
         RatingCache(message.chat.id,message.text)
         await bot.send_message(message.chat.id,'Введите ФИО', reply_markup=menu)        
-        await Step.waitng_for_rate.set()
+        db_operations.add_state(message.chat.id,Step.waitng_for_rate)
 
 
-@dp.message_handler(state=Step.waitng_for_rate)
-async def place_in_rating_Step(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.waitng_for_rate)
+async def place_in_rating_Step(message):
     course = RatingCache.cache[message.chat.id]
     menu = markup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
     menu.row(button('Назад'))
@@ -219,8 +217,8 @@ async def place_in_rating_Step(message, state: FSMContext):
         del RatingCache.cache[message.chat.id]
 
 
-@dp.message_handler(state=Step.prof)
-async def testStep(message, state: FSMContext):
+@dp.message_handler(lambda message: db_operations.get_state(message.chat.id) == Step.prof)
+async def testStep(message):
     key1 = None
     key2 = None
     key3 = None

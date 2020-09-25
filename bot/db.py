@@ -127,3 +127,28 @@ def get_course_names():
             print(e)
     else:
         print("Error! cannot connect")
+
+def add_state(info:tuple):
+    sql = """INSERT OR REPLACE INTO states
+    VALUES (?,?)"""
+    if conn is not None:
+        try:
+            conn.cursor().execute(sql,info)
+            conn.commit()
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")
+
+
+def get_state(_id:tuple):
+    sql = """ SELECT state FROM states
+        WHERE id = ?"""
+    if conn is not None:
+        try:
+            info = conn.cursor().execute(sql,_id).fetchall()
+            return info
+        except Error as e:
+            print(e)
+    else:
+        print("Error! cannot connect")

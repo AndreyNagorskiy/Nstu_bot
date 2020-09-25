@@ -79,3 +79,10 @@ def get_course_names():
         courses.append(course[0])
     return courses
 
+
+def add_state(_id:str,state:str):
+    db.add_state((_id,state,))
+
+def get_state(_id):
+    state = db.get_state((str(_id),))[0][0]
+    return state
